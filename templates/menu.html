@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>菜單</title>
+  </head>
+  <body>
+    <h1>菜單</h1>
+    <form action="/cart" method="post">
+      <label for="table_number">桌號：</label>
+      <input type="text" name="table_number" required /><br />
+
+      <label for="takeout">外帶：</label>
+      <select name="takeout" required>
+        <option value="0">內用</option>
+        <option value="1">外帶</option></select
+      ><br />
+
+      {% for item in menu_items %}
+      <div>
+        <input type="checkbox" name="item" value="{{ item.id }}" />
+        <label>{{ item.name }} - ${{ item.price }}</label>
+        <input type="number" name="quantity" value="1" min="1" />
+      </div>
+      {% endfor %}
+
+      <button type="submit">加入購物車</button>
+    </form>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='styles.css') }}"
+    />
+    <script src="{{ url_for('static', filename='menu.js') }}"></script>
+  </body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>購物車</title>
+  </head>
+  <body>
+    <h1>購物車</h1>
+    <form action="/cart" method="post"></form>
+    <table>
+      <thead>
+        <tr>
+          <th>桌號</th>
+          <th>外帶</th>
+          <th>品項</th>
+          <th>數量</th>
+          <th>總價</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for order in orders %}
+        <tr>
+          <td>{{ order.table_number }}</td>
+          <td>{{ "外帶" if order.takeout else "內用" }}</td>
+          <td>{{ order.item.name }}</td>
+          <td>{{ order.quantity }}</td>
+          <td>NT${{ order.total_price }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <form action="/checkout" method="post">
+      <button type="submit" id="checkoutBtn">結帳</button>
+    </form>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='styles.css') }}"
+    />
+    <script src="{{ url_for('static', filename='cart.js') }}"></script>
+  </body>
+</html>
